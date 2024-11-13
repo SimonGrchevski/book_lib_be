@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import booksRouter from "./routes/books"
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use("/books", booksRouter);
