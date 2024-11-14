@@ -15,6 +15,18 @@ router.get("/", (req: Request, res: Response) => {
     });
 });
 
+router.get("/:id", (req: Request, res: Response) => {
+    const { id } = req.params;
+    db.get(`SELECT * FROM books where id = ?`, [id], (err,row) => {
+        if(err) {
+            console.error("Error retrieving book: ", err.message);
+            res.status(500).json({error:"Internal server errror"});
+        } else {
+            res.json(row);
+        }
+    })
+})
+
 router.post("/",(req: Request, res: Response) => {
     const { title, author, published_year, pages } = req.body;
     db.run("INSERT INTO books (title, author, published_year, pages) VALUES (?,?,?,?)", 
