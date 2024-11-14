@@ -19,12 +19,12 @@ router.post("/",(req: Request, res: Response) => {
     const { title, author, published_year, pages } = req.body;
     db.run("INSERT INTO books (title, author, published_year, pages) VALUES (?,?,?,?)", 
         [title,author,published_year,pages],
-        (err) => {
+        function (err){
             if(err) {
                 console.error("Error adding book",err.message);
                 res.status(500).json({error:"Internal server error"});
             } else {
-                res.json({title, author, published_year, pages});
+                res.json({id:this.lastID,title, author, published_year, pages});
             }
         }
     );

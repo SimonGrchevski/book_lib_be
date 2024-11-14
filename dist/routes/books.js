@@ -19,13 +19,13 @@ router.get("/", (req, res) => {
 });
 router.post("/", (req, res) => {
     const { title, author, published_year, pages } = req.body;
-    db_1.default.run("INSERT INTO books (title, author, published_year, pages) VALUES (?,?,?,?)", [title, author, published_year, pages], (err) => {
+    db_1.default.run("INSERT INTO books (title, author, published_year, pages) VALUES (?,?,?,?)", [title, author, published_year, pages], function (err) {
         if (err) {
             console.error("Error adding book", err.message);
             res.status(500).json({ error: "Internal server error" });
         }
         else {
-            res.json({ id: 2, title, author, published_year, pages });
+            res.json({ id: this.lastID, title, author, published_year, pages });
         }
     });
 });
